@@ -25,3 +25,6 @@ the data.
 
 This means each time a request is made the PDF is re-downloaded. Some sort of
 caching is planned for the future.
+
+##Demo
+The api is available at http://data.thekinfamily.com/deskBlotter
