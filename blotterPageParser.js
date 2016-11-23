@@ -1,3 +1,5 @@
+const urldecode = require("urldecode");
+
 module.exports = exports = {};
 
 function cloneContext(parserContext) {
@@ -17,7 +19,7 @@ function completeCaseInfo(parserContext) {
   }
 
   context.caseInfo = {
-    offenseType: sortedText[i].text,
+    offenseType: "",
     offenseDescription: "",
     caseNumber: "",
     dispositionDateTime: "",
@@ -32,12 +34,12 @@ function completeDocket(parserContext) {
   if(context.docket) {
     context = completeCaseInfo(context);
     context.dockets.push(context.docket);
-    context.docket = {
-      cases: []
-    };
-    context.caseInfo = null;
-    context.caseInfoSection = false;
   }
+  context.docket = {
+    cases: []
+  };
+  context.caseInfo = null;
+  context.caseInfoSection = false;
 
   return context;
 }
@@ -85,10 +87,13 @@ module.exports.parsePage = function(page, parserContext) {
       context.caseTable.dispositionX = sortedText[i].x;
     }
     else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseTypeX) {
+      context = completeCaseInfo(context);
       if(sortedText[i].text == "Totals By Booking Type") {
         context.caseInfoSection = false;
       }
-      context = completeCaseInfo(context);
+      else{
+        context.caseInfo.offenseType += sortedText[i].text;
+      }
     }
     else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseDescriptionX) {
       context.caseInfo.offenseDescription += sortedText[i].text;
