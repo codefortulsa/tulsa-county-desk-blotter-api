@@ -9,7 +9,7 @@ be compatible with most node versions.
 * NodeJS
 
 ###Running from Source
-    $ git clone https://github.com/pipakin/tulsa-county-desk-blotter-api.git
+    $ git clone https://github.com/codefortulsa/tulsa-county-desk-blotter-api.git
     $ cd tulsa-county-desk-blotter-api
     $ npm install
     $ node server.js
