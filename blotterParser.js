@@ -1,6 +1,8 @@
-let fs = require('fs');
 let PDFParser = require("pdf2json");
 let urldecode = require("urldecode"); 
+
+module.exports = function(data) {
+  return new Promise(function(resolve, reject) {
 let pdfParser = new PDFParser();
 
 pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError) );
@@ -88,7 +90,9 @@ pdfParser.on("pdfParser_dataReady", pdfData => {
     dockets.push(docket);
   }
 
-  fs.writeFileSync("test.json", JSON.stringify(dockets));
+  resolve(dockets);
 });
 
-pdfParser.loadPDF("/mnt/d/Desk Blotter.pdf");
+pdfParser.parseBuffer(data);
+  });
+}
