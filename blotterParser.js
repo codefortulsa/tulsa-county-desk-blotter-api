@@ -56,15 +56,20 @@ pdfParser.on("pdfParser_dataReady", pdfData => {
         dispositionX = sortedText[i].x;
       }
       else if(caseInfoSection && sortedText[i].x == offenseTypeX) {
-        if(caseInfo != null) {
-          docket.cases.push(caseInfo);
+        if(sortedText[i].text == "Totals By Booking Type") {
+          caseInfoSection = false;
         }
-        caseInfo = {
-          offenseType: sortedText[i].text,
-          offenseDescription: "",
-          caseNumber: "",
-          dispositionDateTime: "",
-          disposition: ""
+        else {
+          if(caseInfo != null) {
+            docket.cases.push(caseInfo);
+          }
+          caseInfo = {
+            offenseType: sortedText[i].text,
+            offenseDescription: "",
+            caseNumber: "",
+            dispositionDateTime: "",
+            disposition: ""
+          }
         }
         
       }
