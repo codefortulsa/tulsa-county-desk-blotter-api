@@ -7,7 +7,7 @@ module.exports = function(data) {
   return new Promise(function(resolve, reject) {
     const pdfParser = new PDFParser();
 
-    pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError) );
+    pdfParser.on("pdfParser_dataError", errData => reject(parserError) );
     pdfParser.on("pdfParser_dataReady", pdfData => {
       var context = {};
       for(var page=0;page<pdfData.formImage.Pages.length;page++)
