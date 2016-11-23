@@ -1,5 +1,5 @@
 # tulsa-county-inmate-information-center-api
-JSON wrapper for tulsa county desk blotter report PDF.
+JSON wrapper for tulsa county inmate information center PDF reports.
 
 ##Installation
 This API runs on node.js. It was written against v6.9.1 but should generally
