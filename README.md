@@ -1,4 +1,4 @@
-# tulsa-county-desk-blotter-api
+# tulsa-county-inmate-information-center-api
 JSON wrapper for tulsa county desk blotter report PDF.
 
 ##Installation
@@ -9,7 +9,7 @@ be compatible with most node versions.
 * NodeJS
 
 ###Running from Source
-    $ git clone https://github.com/codefortulsa/tulsa-county-desk-blotter-api.git
+    $ git clone https://github.com/codefortulsa/tulsa-county-inmate-information-center-api.git
     $ cd tulsa-county-desk-blotter-api
     $ npm install
     $ node server.js
