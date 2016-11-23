@@ -1,9 +1,9 @@
 var http = require('http');
 var url = require('url');
 
-module.exports = function() {
+module.exports = function(reportUrl) {
   return new Promise(function(resolve, reject) {
-    http.get(url.parse('http://iic.tulsacounty.org/srsreports/Desk%20Blotter.pdf'), function(res) {
+    http.get(url.parse(reportUrl), function(res) {
       var data = [];
 
       res.on('data', function(chunk) {
