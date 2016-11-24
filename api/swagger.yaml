@@ -1,0 +1,135 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Tulsa County Inmate Information Center API"
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /deskBlotter:
+    get:
+      tags: [
+        "Inmate Information"
+      ]
+      description: "Gets a JSON version of the Desk Blotter Report.\n"
+      operationId: "deskBlotterGET"
+      parameters: []
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Default"
+  /inmateBooking:
+    get:
+      tags: [
+        "Inmate Information"
+      ]
+      description: "Gets a JSON version of the Inmate Booking report."
+      operationId: "inmateBookingGET"
+      parameters: []
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200_1"
+      x-swagger-router-controller: "Default"
+definitions:
+  inmateBooking_cases:
+    properties:
+      offenseDescription:
+        type: "string"
+      caseNumber:
+        type: "string"
+      nextProceedingOrDisposition:
+        type: "string"
+      date:
+        type: "string"
+      time:
+        type: "string"
+      bondType:
+        type: "string"
+      amount:
+        type: "string"
+  inline_response_200_1:
+    properties:
+      name:
+        type: "string"
+      address:
+        type: "string"
+      dob:
+        type: "string"
+      race:
+        type: "string"
+      gender:
+        type: "string"
+      height:
+        type: "string"
+      weight:
+        type: "string"
+      hair:
+        type: "string"
+      eyes:
+        type: "string"
+      arrestedBy:
+        type: "string"
+      bookingDate:
+        type: "string"
+      time:
+        type: "string"
+      cell:
+        type: "string"
+      cases:
+        type: "array"
+        items:
+          $ref: "#/definitions/inmateBooking_cases"
+  inline_response_200:
+    properties:
+      Docket:
+        type: "string"
+      'DLM #':
+        type: "string"
+      Agency:
+        type: "string"
+      Name:
+        type: "string"
+      Entered:
+        type: "string"
+      Birthdate:
+        type: "string"
+      Age:
+        type: "string"
+      Type:
+        type: "string"
+      Race:
+        type: "string"
+      Gender:
+        type: "string"
+      Release:
+        type: "string"
+      Address:
+        type: "string"
+      cases:
+        type: "array"
+        items:
+          $ref: "#/definitions/deskBlotter_cases"
+  deskBlotter_cases:
+    properties:
+      offenseType:
+        type: "string"
+      offenseDescription:
+        type: "string"
+      caseNumber:
+        type: "string"
+      dispositionDateTime:
+        type: "string"
+      disposition:
+        type: "string"
