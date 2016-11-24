@@ -32,5 +32,4 @@ This means each time a request is made the PDF is re-downloaded. Some sort of
 caching is planned for the future.
 
 ##Live API
-* Desk Blotter Report: http://data.thekinfamily.com/deskBlotter
-* Inmate Booking Report: http://data.thekinfamily.com/inmateBooking
+The live API can be found at http://data.thekinfamily.com/docs
