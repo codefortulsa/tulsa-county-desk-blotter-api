@@ -82,7 +82,7 @@ function completeInmate(parserContext, scrub) {
   return context;
 }
 
-module.exports.parsePage = function(scrub) {
+module.exports = function(scrub) {
   var funcs = {};
   funcs.parsePage = function(page, parserContext) {
     var context = Object.assign({
