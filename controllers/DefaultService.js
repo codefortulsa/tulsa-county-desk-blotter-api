@@ -8,7 +8,7 @@ const inmateBookingPageParser = require("./inmateBookingPageParser")
 
 exports.deskBlotterGET = function(args, req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  var scrub = config.scrubData && config.whitelist.every(x => !getRequestIP(req, {
+  var scrub = config.whitelist.every(x => !getRequestIP(req, {
         headers: []
     }).endsWith(x));
 
@@ -20,7 +20,7 @@ exports.deskBlotterGET = function(args, req, res, next) {
 
 exports.inmateBookingGET = function(args, req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  var scrub = config.scrubData && config.whitelist.every(x => !getRequestIP(req, {
+  var scrub = config.whitelist.every(x => !getRequestIP(req, {
         headers: []
     }).endsWith(x));
 

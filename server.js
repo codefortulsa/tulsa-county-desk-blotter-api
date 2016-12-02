@@ -5,8 +5,9 @@ var http = require('http');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
+var config = require('./config');
 
-var serverPort = 3030;
+var serverPort = config.port;
 
 // swaggerRouter configuration
 var options = {

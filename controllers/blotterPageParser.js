@@ -36,6 +36,7 @@ function completeDocket(parserContext, scrub) {
       delete context.docket.Name;
       delete context.docket.Age;
       delete context.docket.Address;
+      delete context.docket.Birthdate
     }
 
     context = completeCaseInfo(context);
