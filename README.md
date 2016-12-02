@@ -39,10 +39,10 @@ the app is to put a json file at ~/.iic-apirc. The defaults are as follows:
 ```json
 {
   "port": 3030,
-  "whitelist": {
+  "whitelist": [
     "127.0.0.1",
     "::1"
-  }
+  ]
 }
 ```
 
