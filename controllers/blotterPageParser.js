@@ -29,9 +29,15 @@ function completeCaseInfo(parserContext) {
   return context;
 }
 
-function completeDocket(parserContext) {
+function completeDocket(parserContext, scrub) {
   var context = cloneContext(parserContext);
   if(context.docket) {
+    if(scrub) {
+      delete context.docket.Name;
+      delete context.docket.Age;
+      delete context.docket.Address;
+    }
+
     context = completeCaseInfo(context);
     context.dockets.push(context.docket);
   }
@@ -44,74 +50,79 @@ function completeDocket(parserContext) {
   return context;
 }
 
-module.exports.parsePage = function(page, parserContext) {
-  var context = Object.assign({
-    docket: null,
-    caseInfo: null,
-    dockets: [],
-    caseInfoSection: false,
+module.exports = function(scrub) {
+  var funcs = {};
+  funcs.parsePage = function(page, parserContext) {
+    var context = Object.assign({
+      docket: null,
+      caseInfo: null,
+      dockets: [],
+      caseInfoSection: false,
 
-    caseTable: {
-      offenseTypeX: 0,
-      offenseDescriptionX: 0,
-      caseNumberX: 0,
-      dispositionDateTimeX: 0,
-      dispositionX: 0
-    }
-  }, cloneContext(parserContext));
-
-  var sortedText = page.Texts.sort((a,b) => a.y != b.y ? a.y - b.y : a.x - b.x).map(t => ({ text: urldecode(t.R[0].T), x: t.x, y: t.y }));
-  for(var i=0;i<sortedText.length;i++){
-    if(sortedText[i].text == "Docket:") {
-      context = completeDocket(context);
-    }
-
-    if(sortedText[i].text.endsWith(":") && sortedText.length > i + 1 && !context.caseInfoSection) {
-      context.docket[sortedText[i].text.replace(":", "")] = sortedText[i + 1].text.endsWith(":") ? null : sortedText[i + 1].text;
-    }
-
-    if(sortedText[i].text == "Offense Type"){
-      context.caseInfoSection = true;
-      context.caseTable.offenseTypeX = sortedText[i].x;
-    }
-    else if(sortedText[i].text == "Offense Description"){
-      context.caseTable.offenseDescriptionX = sortedText[i].x;
-    }
-    else if(sortedText[i].text == "Case Number"){
-      context.caseTable.caseNumberX = sortedText[i].x;
-    }
-    else if(sortedText[i].text == "Disposition Date/Time"){
-      context.caseTable.dispositionDateTimeX = sortedText[i].x;
-    }
-    else if(sortedText[i].text == "Disposition") {
-      context.caseTable.dispositionX = sortedText[i].x;
-    }
-    else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseTypeX) {
-      context = completeCaseInfo(context);
-      if(sortedText[i].text == "Totals By Booking Type") {
-        context.caseInfoSection = false;
+      caseTable: {
+        offenseTypeX: 0,
+        offenseDescriptionX: 0,
+        caseNumberX: 0,
+        dispositionDateTimeX: 0,
+        dispositionX: 0
       }
-      else{
-        context.caseInfo.offenseType += sortedText[i].text;
+    }, cloneContext(parserContext));
+
+    var sortedText = page.Texts.sort((a,b) => a.y != b.y ? a.y - b.y : a.x - b.x).map(t => ({ text: urldecode(t.R[0].T), x: t.x, y: t.y }));
+    for(var i=0;i<sortedText.length;i++){
+      if(sortedText[i].text == "Docket:") {
+        context = completeDocket(context, scrub);
+      }
+
+      if(sortedText[i].text.endsWith(":") && sortedText.length > i + 1 && !context.caseInfoSection) {
+        context.docket[sortedText[i].text.replace(":", "")] = sortedText[i + 1].text.endsWith(":") ? null : sortedText[i + 1].text;
+      }
+
+      if(sortedText[i].text == "Offense Type"){
+        context.caseInfoSection = true;
+        context.caseTable.offenseTypeX = sortedText[i].x;
+      }
+      else if(sortedText[i].text == "Offense Description"){
+        context.caseTable.offenseDescriptionX = sortedText[i].x;
+      }
+      else if(sortedText[i].text == "Case Number"){
+        context.caseTable.caseNumberX = sortedText[i].x;
+      }
+      else if(sortedText[i].text == "Disposition Date/Time"){
+        context.caseTable.dispositionDateTimeX = sortedText[i].x;
+      }
+      else if(sortedText[i].text == "Disposition") {
+        context.caseTable.dispositionX = sortedText[i].x;
+      }
+      else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseTypeX) {
+        context = completeCaseInfo(context);
+        if(sortedText[i].text == "Totals By Booking Type") {
+          context.caseInfoSection = false;
+        }
+        else{
+          context.caseInfo.offenseType += sortedText[i].text;
+        }
+      }
+      else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseDescriptionX) {
+        context.caseInfo.offenseDescription += sortedText[i].text;
+      }
+      else if(context.caseInfoSection && sortedText[i].x == context.caseTable.caseNumberX) {
+        context.caseInfo.caseNumber += sortedText[i].text;
+      }
+      else if(context.caseInfoSection && sortedText[i].x == context.caseTable.dispositionDateTimeX) {
+        context.caseInfo.dispositionDateTime += sortedText[i].text;
+      }
+      else if(context.caseInfoSection && sortedText[i].x == context.caseTable.dispositionX) {
+        context.caseInfo.disposition += sortedText[i].text;
       }
     }
-    else if(context.caseInfoSection && sortedText[i].x == context.caseTable.offenseDescriptionX) {
-      context.caseInfo.offenseDescription += sortedText[i].text;
-    }
-    else if(context.caseInfoSection && sortedText[i].x == context.caseTable.caseNumberX) {
-      context.caseInfo.caseNumber += sortedText[i].text;
-    }
-    else if(context.caseInfoSection && sortedText[i].x == context.caseTable.dispositionDateTimeX) {
-      context.caseInfo.dispositionDateTime += sortedText[i].text;
-    }
-    else if(context.caseInfoSection && sortedText[i].x == context.caseTable.dispositionX) {
-      context.caseInfo.disposition += sortedText[i].text;
-    }
+
+    return context;
   }
 
-  return context;
-}
+  funcs.completeParse = function(parserContext) {
+    return completeDocket(parserContext, scrub).dockets;
+  }
 
-module.exports.completeParse = function(parserContext) {
-  return completeDocket(parserContext).dockets;
+  return funcs;
 }
