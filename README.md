@@ -35,15 +35,16 @@ caching is planned for the future.
 
 Configuration is loaded using the rc npm module. The easiest way to configure
 the app is to put a json file at ~/.iic-apirc. The defaults are as follows:
-    ```
-    {
-      "port": 3030,
-      "whitelist": {
-        "127.0.0.1",
-        "::1"
-      }
-    }
-    ```
+
+```json
+{
+  "port": 3030,
+  "whitelist": {
+    "127.0.0.1",
+    "::1"
+  }
+}
+```
 
 ###Data scrubbing
 Fields like Name, Address, DOB, and Age are scrubbed from the data unless the
