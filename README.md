@@ -31,5 +31,24 @@ the data.
 This means each time a request is made the PDF is re-downloaded. Some sort of
 caching is planned for the future.
 
+##Config
+
+Configuration is loaded using the rc npm module. The easiest way to configure
+the app is to put a json file at ~/.iic-apirc. The defaults are as follows:
+
+```json
+{
+  "port": 3030,
+  "whitelist": [
+    "127.0.0.1",
+    "::1"
+  ]
+}
+```
+
+###Data scrubbing
+Fields like Name, Address, DOB, and Age are scrubbed from the data unless the
+request comes from a whitelisted address.
+
 ##Live API
 The live API can be found at http://data.thekinfamily.com/docs/#!/Inmate_Information
