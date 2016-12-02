@@ -10,7 +10,7 @@ exports.deskBlotterGET = function(args, req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   var scrub = config.scrubData && config.whitelist.every(x => !getRequestIP(req, {
         headers: []
-    }).endsWith(x)));
+    }).endsWith(x));
 
   loader('http://iic.tulsacounty.org/srsreports/Desk%20Blotter.pdf')
     .then(parser(blotterPageParser(scrub)))
@@ -22,7 +22,7 @@ exports.inmateBookingGET = function(args, req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   var scrub = config.scrubData && config.whitelist.every(x => !getRequestIP(req, {
         headers: []
-    }).endsWith(x)));
+    }).endsWith(x));
 
   loader('http://iic.tulsacounty.org/expInmateBookings/Export')
     .then(parser(inmateBookingPageParser(scrub)))
