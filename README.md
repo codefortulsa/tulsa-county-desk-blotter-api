@@ -28,8 +28,7 @@ following PDF is downloaded: http://iic.tulsacounty.org/expInmateBookings/Export
 The PDF is then processed by pdf2json and the resulting JSON is parsed for
 the data.
 
-This means each time a request is made the PDF is re-downloaded. Some sort of
-caching is planned for the future.
+Note that PDFs will be cached for a full hour.
 
 ##Config
 
