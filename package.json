@@ -9,12 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cache-manager": "^2.2.0",
     "connect": "^3.2.0",
     "get-request-ip": "^1.0.1",
     "js-yaml": "^3.3.0",
     "pdf2json": "^1.1.7",
+    "rc": "^1.1.6",
     "swagger-tools": "0.10.1",
-    "urldecode": "^1.0.1",
-      "rc": "^1.1.6"
+    "urldecode": "^1.0.1"
   }
 }
