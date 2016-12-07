@@ -17,6 +17,11 @@ be compatible with most node versions.
 Note: it is recommended to run the server using a tool like forever to keep it
 running in the background.
 
+###Heroku
+
+THe API is set up for heroku, to run it all you have to do is add a heroku remote
+and push to heroku.
+
 ##How does it work?
 When a request is made to the api at http://localhost:3030/deskBlotter, the
 following PDF is downloaded: http://iic.tulsacounty.org/srsreports/Desk%20Blotter.pdf.
