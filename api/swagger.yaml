@@ -5,6 +5,7 @@ info:
   title: "Tulsa County Inmate Information Center API"
 schemes:
   - http
+  - https
 consumes:
   - application/json
 produces:
