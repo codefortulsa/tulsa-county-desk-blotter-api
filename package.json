@@ -17,5 +17,8 @@
     "rc": "^1.1.6",
     "swagger-tools": "0.10.1",
     "urldecode": "^1.0.1"
+  },
+  "engines": {
+    "node": "6.9.1"
   }
 }
